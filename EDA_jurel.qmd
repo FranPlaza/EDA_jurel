@@ -1,6 +1,48 @@
 ---
 title: "EDA_jurel"
+format: pdf
+editor: visual
 ---
+
+```{r}
+#| label: load-packages-data
+#| include: false
+
+library(tidyverse)
+library(MASS) 
+library(reshape2) 
+library(reshape)
+library(sf)
+library(dplyr)
+library(readxl)
+library(spData)
+library(ggplot2) # tidyverse data visualization package
+library(ggforce)
+library(rgeos)
+library(ggspatial)
+library(tidyverse)
+library(rgdal)
+library(chilemapas)
+library(patchwork)
+library(colorspace)
+library(RColorBrewer)
+library(gghighlight)
+library(akima)
+
+
+pac<-c("readr","MASS","dplyr","lme4","Hmisc","gam")
+lapply(pac, require, character.only = TRUE)
+lapply(pac, library, character.only = TRUE)
+
+# Set Path and read data -------------------------------------------------------
+rm(list=ls())
+# path = "H:/Otros ordenadores/Mi PC/IFOP/DED/Proyecto Hidroacustico Jurel"
+path = "~/IFOP/DED/Proyecto Hidroacustico Jurel"
+setwd(path)
+
+db2020 <- read_excel("data/Base Ambiental 2020.xls")
+# db2019 <- read_excel("data/Base Ambiental 2019.xls")
+```
 
 ## Quarto
 
