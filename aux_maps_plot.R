@@ -14,8 +14,8 @@ library(chilemapas)
 library(patchwork)
 library(colorspace)
 library(RColorBrewer)
-library(gghighlight)
-library(akima)
+# library(gghighlight)
+# library(akima)
 
 
 pac<-c("readr","MASS","dplyr","lme4","Hmisc","gam")
@@ -29,13 +29,13 @@ df = db2020 %>%
   dplyr::select(c("Longitud", "Latitud", colnames(db2020)[11:18])) %>%
   mutate(Sa_class = fct_rev(cut(Sa, breaks =c(0, 1, 500, 1000, 2000, Inf))), .after = Sa) %>% 
   mutate(Sa_class = fct_recode(Sa_class, 
-              ">2000" = "(2e+03,Inf]",
-              "1000-2000" = "(1e+03,2e+03]",
-              "500-1000" = "(500,1e+03]",
-              "1-500" = "(1,500]",
-              "0" = "(0,1]")) %>% 
-  mutate_at(colnames(df)[5:11], cut_number, n=5) %>% 
-  mutate_at(colnames(df)[5:11], fct_rev)
+                               ">2000" = "(2e+03,Inf]",
+                               "1000-2000" = "(1e+03,2e+03]",
+                               "500-1000" = "(500,1e+03]",
+                               "1-500" = "(1,500]",
+                               "0" = "(0,1]")) %>% 
+  mutate_at(colnames(db2020)[12:18], cut_number, n=5) %>% 
+  mutate_at(colnames(db2020)[12:18], fct_rev)
 
 # Krigging of datapoints to set up interpolated maps - just as a test
 # df_k = db2020 %>%
@@ -100,11 +100,6 @@ p0 =
 ## Sa plot ----
 p1 = p0 +
   geom_point(data = df, aes(x= Longitud, y= Latitud, colour = Sa_class), size = 3, alpha = 0.7) +
-  # gghighlight(Sa_class == ">2000", keep_scales = T) +
-  # scale_colour_brewer()
-   # scale_color_brewer(palette = "Spectral", #direction = -1,
-                     # name = "Sa", na.translate = F,
-                     # labels = c(">2000", "1000-2000", "500-1000","1-500", "0")) +
   scale_color_manual(values = c(">2000" = "red",
                                 "1000-2000" = "orange",
                                 "500-1000" = "gray80",
@@ -115,17 +110,6 @@ p1 = p0 +
         legend.title = element_text(size=8),
         legend.justification='left')
 # p1
-
-
-# SST plot ----
-# p2.tsm = p0 +
-#   geom_tile(data =df_TSM, aes(x = Lon, y = Lat, fill = TSM)) +
-#   stat_contour() +
-#   xlab("Longitude") +
-#   ylab("Latitude") +
-#   scale_fill_continuous(name = "Temperatura",
-#                         low = "grey100", high = "red")
-# p2.tsm
 
 
 for (i in 2:8){
@@ -142,7 +126,7 @@ for (i in 2:8){
   assign(paste0("p", i), aux)
 }
 
-plot_maps = (p1 | p2 | p3 | p4)/ (p5 | p6 | p7 | p8)
+# plot_maps = (p1 | p2 | p3 | p4)/ (p5 | p6 | p7 | p8)
 # plot = (p2 | p3 | p4 | p5 | p6 | p7 | p8)
 # plot
 # ggsave(plot, file = "spatial_maps_class.pdf", 

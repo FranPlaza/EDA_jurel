@@ -1,8 +1,9 @@
 ---
-title: "Análisis de datos exploratorio para proyecto jurel"
+title: "Análisis de datos exploratorios para proyecto jurel"
 author: "Francisco Plaza Vega"
 format: pdf
 editor: visual
+lang: es
 ---
 
 ```{r}
@@ -10,6 +11,7 @@ editor: visual
 #| include: false
 
 library(tidyverse)
+library(dplyr)
 library(readxl)
 
 # Set Path and read data -------------------------------------------------------
@@ -20,20 +22,42 @@ path = "~/1_Proyectos/Curso Investigacion reproducible R/Tarea_Curso/EDA_jurel"
 
 db2020 <- read_excel("data/Base_Ambiental_2020.xls")
 # db2019 <- read_excel("data/Base Ambiental 2019.xls")
+
 ```
 
-## Quarto
+## Mapas de crucero hidroacústico
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Con la información obtenida en la base de datos del crucero hidroacústico del 2020, se efectuó un análisis exploratorio de la información. La @fig-maps muestra el gráfico de la variable *Sa* con la *Temperatura.*
 
 ```{r}
 #| echo: false
+#| include: false
 #| eval: true 
 #| warning: false
 #| file: aux_maps_plot.R
 ```
 
+```{r, fig.width=unit(18, "cm")}
+#| label: fig-maps
+#| fig-cap: "Mapas que muestran los datos a analizar de la variable Sa y el resto de las componentes ambientales."
+#| warning: false
+#| echo: false
+(p1 | p2 | p3 | p4)/ (p5 | p6 | p7 | p8)
+```
 
+Respecto a las categorías para la variable *Sa, siguiendo la recomendación por juicio experto, se tiene que corresponden a los siguientes niveles:*
+
+-   $0$
+
+-   $]0, 1]$
+
+-   $]1,  500]$
+
+-   $]500, 1000]$
+
+-   $]1000, 2000]$
+
+-   $> 2000$
 
 ```{r}
 #| echo: true
@@ -43,7 +67,3 @@ levels(log_sa)
 
 quantile(log(df$Sa), c(0, 0.2, 0.4, 0.6, 0.8, 1))
 ```
-
-
-
-
