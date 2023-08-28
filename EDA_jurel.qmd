@@ -1,5 +1,6 @@
 ---
-title: "Análisis de datos exploratorios para proyecto jurel"
+title: "Proyecto hidroacústico jurel"
+subtitle: "Análisis de datos exploratorios"
 author: "Francisco Plaza Vega"
 format: pdf
 editor: visual
@@ -25,9 +26,46 @@ db2020 <- read_excel("data/Base_Ambiental_2020.xls")
 
 ```
 
+## Categorización de la variable Sa
+
+Respecto a las categorías para la variable *Sa, siguiendo la recomendación por juicio experto, se tiene que corresponden a los siguientes niveles:*
+
+-   $0$
+-   $]0, 1]$
+-   $]1,  500]$
+-   $]500, 1000]$
+-   $]1000, 2000]$
+-   $> 2000$
+
+Al efectuar una transformación logarítmica ($Log(Sa)$), se obtiene una distribución muy similar a la Gaussiana, como se puede observar en la @fig-hist-log-sa.
+
+```{r, fig.width=unit(10, "cm"), fig.height=unit(10, "cm")}
+#| label: fig-hist-log-sa
+#| out-width: 40%
+#| fig-cap: "Histograma de frecuencias para la transformación logarítmica de la variable Sa ($Log(Sa)$)."
+#| warning: false
+#| echo: false
+# hist(log(df$Sa))
+ggplot(df, aes(x=log(Sa)))+
+  geom_histogram(color="darkblue", fill="lightblue")
+```
+
+Si se categoriza el recorrido de la transformación a través de los cuartiles en 5 grupos, se obtienen rangos similares a los mostrados en la categorización efectuada inicialmente.
+
+```{r}
+#| echo: true
+#| eval: true 
+log_sa = cut_number(log(df$Sa), n=5)
+levels(log_sa)
+
+quantile(log(df$Sa), c(0, 0.2, 0.4, 0.6, 0.8, 1))
+quantile(df$Sa, c(0, 0.2, 0.4, 0.6, 0.8, 1))
+```
+
+
 ## Mapas de crucero hidroacústico
 
-Con la información obtenida en la base de datos del crucero hidroacústico del 2020, se efectuó un análisis exploratorio de la información. La @fig-maps muestra el gráfico de la variable *Sa* con la *Temperatura.*
+Con la información obtenida en la base de datos del crucero hidroacústico del 2020, se efectuó un análisis exploratorio de la información. La @fig-maps muestra el gráfico de la variable *Sa* con el resto de las variables ambientales contenidas en la base de datos.
 
 ```{r}
 #| echo: false
@@ -37,33 +75,12 @@ Con la información obtenida en la base de datos del crucero hidroacústico del 
 #| file: aux_maps_plot.R
 ```
 
-```{r, fig.width=unit(18, "cm")}
+```{r, fig.width=unit(10, "cm"), fig.height=unit(10, "cm")}
 #| label: fig-maps
+#| out-width: 60%
 #| fig-cap: "Mapas que muestran los datos a analizar de la variable Sa y el resto de las componentes ambientales."
 #| warning: false
 #| echo: false
 (p1 | p2 | p3 | p4)/ (p5 | p6 | p7 | p8)
 ```
 
-Respecto a las categorías para la variable *Sa, siguiendo la recomendación por juicio experto, se tiene que corresponden a los siguientes niveles:*
-
--   $0$
-
--   $]0, 1]$
-
--   $]1,  500]$
-
--   $]500, 1000]$
-
--   $]1000, 2000]$
-
--   $> 2000$
-
-```{r}
-#| echo: true
-#| eval: true 
-log_sa = cut_number(log(df$Sa), n=5)
-levels(log_sa)
-
-quantile(log(df$Sa), c(0, 0.2, 0.4, 0.6, 0.8, 1))
-```

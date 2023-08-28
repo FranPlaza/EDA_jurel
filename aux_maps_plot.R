@@ -106,8 +106,8 @@ p1 = p0 +
                                 "1-500" = "gray90",
                                 "0" = "gray100")) +
   theme(legend.position = c(0.01, 0.85), 
-        legend.text=element_text(size=7),
-        legend.title = element_text(size=8),
+        legend.text=element_text(size=5),
+        legend.title = element_text(size=5),
         legend.justification='left')
 # p1
 
@@ -118,8 +118,8 @@ for (i in 2:8){
     scale_color_brewer(palette = "Spectral", #direction = -1,
                        name = colnames(df)[i+3], na.translate = F) +
     theme(legend.position = c(0.01, 0.85), 
-          legend.text=element_text(size=7),
-          legend.title = element_text(size=8),
+          legend.text=element_text(size=5),
+          legend.title = element_text(size=5),
           legend.justification='left')
     # scale_colour_gradient(low = "white", high = "red", na.value = NA, name = colnames(df)[i+3])
     # scale_fill_distiller(palette = "Spectral")
