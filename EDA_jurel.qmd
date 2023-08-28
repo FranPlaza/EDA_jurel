@@ -1,5 +1,6 @@
 ---
-title: "EDA_jurel"
+title: "Análisis de datos exploratorio para proyecto jurel"
+author: "Francisco Plaza Vega"
 format: pdf
 editor: visual
 ---
@@ -9,38 +10,15 @@ editor: visual
 #| include: false
 
 library(tidyverse)
-library(MASS) 
-library(reshape2) 
-library(reshape)
-library(sf)
-library(dplyr)
 library(readxl)
-library(spData)
-library(ggplot2) # tidyverse data visualization package
-library(ggforce)
-library(rgeos)
-library(ggspatial)
-library(tidyverse)
-library(rgdal)
-library(chilemapas)
-library(patchwork)
-library(colorspace)
-library(RColorBrewer)
-library(gghighlight)
-library(akima)
-
-
-pac<-c("readr","MASS","dplyr","lme4","Hmisc","gam")
-lapply(pac, require, character.only = TRUE)
-lapply(pac, library, character.only = TRUE)
 
 # Set Path and read data -------------------------------------------------------
 rm(list=ls())
 # path = "H:/Otros ordenadores/Mi PC/IFOP/DED/Proyecto Hidroacustico Jurel"
-path = "~/IFOP/DED/Proyecto Hidroacustico Jurel"
-setwd(path)
+path = "~/1_Proyectos/Curso Investigacion reproducible R/Tarea_Curso/EDA_jurel"
+# setwd(path)
 
-db2020 <- read_excel("data/Base Ambiental 2020.xls")
+db2020 <- read_excel("data/Base_Ambiental_2020.xls")
 # db2019 <- read_excel("data/Base Ambiental 2019.xls")
 ```
 
@@ -49,5 +27,23 @@ db2020 <- read_excel("data/Base Ambiental 2020.xls")
 Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
 ```{r}
-1 + 1
+#| echo: false
+#| eval: true 
+#| warning: false
+#| file: aux_maps_plot.R
 ```
+
+
+
+```{r}
+#| echo: true
+#| eval: true 
+log_sa = cut_number(log(df$Sa), n=5)
+levels(log_sa)
+
+quantile(log(df$Sa), c(0, 0.2, 0.4, 0.6, 0.8, 1))
+```
+
+
+
+
