@@ -5,6 +5,12 @@ author: "Francisco Plaza Vega"
 format: pdf
 editor: visual
 lang: es
+papersize: letter
+margin-left: 1.5cm
+margin-right: 1.5cm
+margin-top: 1.5cm
+margin-bottom: 2cm
+number-sections: true
 ---
 
 ```{r}
@@ -24,6 +30,15 @@ path = "~/1_Proyectos/Curso Investigacion reproducible R/Tarea_Curso/EDA_jurel"
 db2020 <- read_excel("data/Base_Ambiental_2020.xls")
 # db2019 <- read_excel("data/Base Ambiental 2019.xls")
 
+```
+
+
+```{r}
+#| echo: false
+#| include: false
+#| eval: true 
+#| warning: false
+#| file: aux_maps_plot.R
 ```
 
 ## Categorización de la variable Sa
@@ -67,20 +82,14 @@ quantile(df$Sa, c(0, 0.2, 0.4, 0.6, 0.8, 1))
 
 Con la información obtenida en la base de datos del crucero hidroacústico del 2020, se efectuó un análisis exploratorio de la información. La @fig-maps muestra el gráfico de la variable *Sa* con el resto de las variables ambientales contenidas en la base de datos.
 
-```{r}
-#| echo: false
-#| include: false
-#| eval: true 
-#| warning: false
-#| file: aux_maps_plot.R
-```
 
-```{r, fig.width=unit(10, "cm"), fig.height=unit(10, "cm")}
+```{r, fig.width=unit(20, "cm"), fig.height=unit(8, "cm")}
 #| label: fig-maps
-#| out-width: 60%
+#| out-width: 80%
 #| fig-cap: "Mapas que muestran los datos a analizar de la variable Sa y el resto de las componentes ambientales."
 #| warning: false
 #| echo: false
-(p1 | p2 | p3 | p4)/ (p5 | p6 | p7 | p8)
+# (p1 | p2 | p3 | p4)/ (p5 | p6 | p7 | p8)
+(p1 | p2 | p3 | p4 | p5 | p6 | p7 | p8)
 ```
 

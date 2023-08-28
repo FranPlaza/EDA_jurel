@@ -120,7 +120,9 @@ for (i in 2:8){
     theme(legend.position = c(0.01, 0.85), 
           legend.text=element_text(size=5),
           legend.title = element_text(size=5),
-          legend.justification='left')
+          legend.justification='left',
+          axis.text.y = element_blank(),
+          axis.title.y = element_blank())
     # scale_colour_gradient(low = "white", high = "red", na.value = NA, name = colnames(df)[i+3])
     # scale_fill_distiller(palette = "Spectral")
   assign(paste0("p", i), aux)
